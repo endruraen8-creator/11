@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Магазин | The Millennium Empire</title>
+    <title>Донат – The Millennium Empire</title>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
@@ -16,6 +16,7 @@
             --holo-blue:#00d9ff;
             --discord-blue:#5865F2;
             --dark-side:#1a0a0a;
+            --sith-black:#0d0d0d;
         }
         
         body{
@@ -34,6 +35,12 @@
                 radial-gradient(circle at 80% 20%,rgba(212,175,55,.1)0%,transparent 30%),
                 radial-gradient(circle at 50% 50%,rgba(88,101,242,.05)0%,transparent 50%),
                 #000;
+            animation:imperialDrift 30s ease-in-out infinite;
+        }
+        
+        @keyframes imperialDrift{
+            0%,100%{background-position:0% 0%}
+            50%{background-position:100% 100%}
         }
 
         body::after{
@@ -51,10 +58,10 @@
             100%{transform:perspective(500px) rotateX(60deg) translateY(50px)}
         }
 
-        /* ШАПКА */
+        /* ШАПКА КАК НА ГЛАВНОЙ */
         header{
             position:sticky;top:0;
-            background:rgba(0,0,0,.9);
+            background:rgba(0,0,0,.85);
             backdrop-filter:blur(10px);
             padding:20px 40px;
             display:flex;
@@ -72,9 +79,11 @@
             -webkit-background-clip:text;
             -webkit-text-fill-color:transparent;
             text-shadow:0 0 40px rgba(255,255,255,.5);
+            animation:glow 3s ease-in-out infinite;
         }
+        @keyframes glow{50%{text-shadow:0 0 60px rgba(255,255,255,.9)}}
 
-        /* НАВИГАЦИЯ */
+        /* НАВИГАЦИЯ КАК НА ГЛАВНОЙ */
         nav{
             display:flex;
             justify-content:center;
@@ -99,6 +108,15 @@
             min-width:140px;
         }
         
+        .nav-btn::before{
+            content:'';position:absolute;top:0;left:-100%;
+            width:100%;height:100%;
+            background:linear-gradient(90deg,transparent,rgba(88,101,242,.4),transparent);
+            transition:left .6s ease;
+        }
+        
+        .nav-btn:hover::before{left:100%;}
+        
         .nav-btn:hover{
             background:#2a2a3e;
             box-shadow:0 0 30px rgba(88,101,242,.6);
@@ -110,311 +128,95 @@
             box-shadow:0 0 25px rgba(88,101,242,.8), inset 0 0 20px rgba(88,101,242,.2);
         }
 
+        /* КНОПКА ДОНАТА - ЖЕЛТАЯ */
         .nav-btn.donate{
-            border-color:var(--imperial-gold);
-            color:var(--imperial-gold);
+            border-color:#f39c12;
+            color:#f39c12;
         }
         
         .nav-btn.donate:hover{
-            background:#2a2a1e;
-            box-shadow:0 0 30px rgba(212,175,55,.6);
+            background:#2a1f1e;
+            box-shadow:0 0 30px rgba(243,156,18,.6);
+            border-color:#f39c12;
+            color:#f39c12;
         }
         
         .nav-btn.donate.active{
-            background:#2a2a1e;
-            box-shadow:0 0 25px rgba(212,175,55,.8), inset 0 0 20px rgba(212,175,55,.2);
+            background:#2a1f1e;
+            box-shadow:0 0 25px rgba(243,156,18,.8), inset 0 0 20px rgba(243,156,18,.2);
+            border-color:#f39c12;
         }
 
-        /* ЗАГОЛОВОК */
-        .page-header{
+        /* ЗАГОЛОВОК ДОНАТА */
+        .imperial-header{
+            position:relative;
+            padding:60px 20px;
             text-align:center;
-            padding:40px 20px;
+            overflow:hidden;
+            border-bottom:3px solid var(--imperial-red);
+            box-shadow:0 0 50px rgba(255,51,51,.3);
+        }
+        
+        .imperial-header::before{
+            content:'';position:absolute;inset:0;
+            background:linear-gradient(180deg,transparent 0%,rgba(255,51,51,.1)50%,transparent 100%);
+            animation:scanline 4s ease-in-out infinite;
+        }
+        
+        @keyframes scanline{
+            0%,100%{transform:translateY(-100%)}
+            50%{transform:translateY(100%)}
         }
 
-        .page-title{
+        .empire-logo{
+            font-size:1.2rem;
+            letter-spacing:8px;
+            color:var(--imperial-gold);
+            text-shadow:0 0 20px rgba(212,175,55,.8);
+            margin-bottom:20px;
+            animation:flicker 3s infinite;
+        }
+        
+        @keyframes flicker{
+            0%,100%{opacity:1}
+            50%{opacity:.8}
+            52%{opacity:.3}
+            54%{opacity:1}
+        }
+
+        .main-title{
             font-size:4rem;
             font-weight:900;
-            color:#fff;
+            background:linear-gradient(180deg,#fff 0%,var(--imperial-gold)50%,var(--imperial-red)100%);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
             text-transform:uppercase;
-            letter-spacing:8px;
-            margin-bottom:10px;
-        }
-
-        /* СЕТКА */
-        .shop-grid{
-            max-width:1400px;
-            margin:0 auto;
-            padding:20px;
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-            gap:30px;
-        }
-
-        /* КАРТОЧКА */
-        .shop-card{
-            background:linear-gradient(145deg,rgba(26,26,26,.9),rgba(20,20,20,.9));
-            border:1px solid #333;
-            border-radius:20px;
-            padding:0;
+            letter-spacing:4px;
             position:relative;
-            overflow:hidden;
-            transition:all .3s ease;
+            text-shadow:0 0 60px rgba(255,51,51,.5);
         }
         
-        .shop-card:hover{
-            transform:translateY(-10px);
-            border-color:var(--imperial-gold);
-            box-shadow:0 20px 50px rgba(212,175,55,.2);
-        }
-
-        /* МЕТКА ГОРЯЧЕЕ */
-        .hot-badge{
+        .main-title::after{
+            content:'ИМПЕРСКИЙ АРСЕНАЛ';
             position:absolute;
-            top:15px;
-            right:15px;
-            background:linear-gradient(45deg,#ff6b35,#f7931e);
-            color:#fff;
-            padding:8px 15px;
-            border-radius:20px;
-            font-size:.8rem;
-            font-weight:900;
-            text-transform:uppercase;
-            z-index:10;
-            display:flex;
-            align-items:center;
-            gap:5px;
+            left:0;top:0;width:100%;
+            background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.8)50%,transparent 100%);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            animation:titleShine 3s ease-in-out infinite;
         }
         
-        .hot-badge::before{
-            content:'🔥';
+        @keyframes titleShine{
+            0%{transform:translateX(-100%)}
+            100%{transform:translateX(100%)}
         }
 
-        /* ИЗОБРАЖЕНИЕ */
-        .card-image{
-            height:200px;
-            background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            position:relative;
-            border-bottom:1px solid #333;
-        }
-        
-        .card-image::before{
-            content:'';position:absolute;inset:0;
-            background:radial-gradient(circle at 30% 70%,rgba(255,51,51,.2)0%,transparent 50%),
-                       radial-gradient(circle at 70% 30%,rgba(212,175,55,.1)0%,transparent 50%);
+        .subtitle{
+            font-size:1.3rem;
+            color:var(--holo-blue);
+            margin-top:20px;
+            letter-spacing:2px;
+            text-shadow:0 0 30px rgba(0,217,255,.6);
         }
 
-        .item-visual{
-            font-size:5rem;
-            position:relative;
-            z-index:2;
-            filter:drop-shadow(0 10px 20px rgba(0,0,0,.5));
-        }
-
-        /* ИНФО */
-        .card-info{
-            padding:25px;
-        }
-
-        .card-name{
-            font-size:1.4rem;
-            font-weight:700;
-            color:#fff;
-            margin-bottom:20px;
-            min-height:50px;
-            display:flex;
-            align-items:center;
-        }
-
-        /* КНОПКА ЦЕНЫ */
-        .price-btn{
-            width:100%;
-            padding:15px;
-            background:linear-gradient(90deg,#e73c3e,#ff6b6b);
-            border:none;
-            border-radius:25px;
-            color:#fff;
-            font-size:1.1rem;
-            font-weight:900;
-            cursor:pointer;
-            transition:all .3s ease;
-            text-transform:uppercase;
-            letter-spacing:1px;
-        }
-        
-        .price-btn:hover{
-            transform:scale(1.05);
-            box-shadow:0 10px 30px rgba(231,60,62,.4);
-        }
-
-        /* ФУТЕР */
-        footer{
-            text-align:center;
-            padding:50px 20px;
-            color:#444;
-            font-size:.9rem;
-            margin-top:40px;
-        }
-
-        /* КНОПКА НАВЕРХ */
-        .to-top{
-            position:fixed;bottom:30px;right:30px;
-            background:var(--discord-blue);
-            color:#fff;border:none;
-            padding:15px 20px;border-radius:50%;
-            cursor:pointer;font-size:1.2rem;
-            opacity:0;transition:all .3s ease;
-            z-index:200;
-        }
-        
-        .to-top.visible{opacity:1;}
-        .to-top:hover{background:#7289DA;}
-
-        @media(max-width:768px){
-            .page-title{font-size:2.5rem;letter-spacing:4px;}
-            .shop-grid{grid-template-columns:1fr;}
-            .nav-btn{width:90%;}
-            header{padding:15px;text-align:center;}
-            .logo-txt{font-size:1.8rem;}
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="logo-txt">The Millennium Empire</div>
-    </header>
-
-    <nav>
-        <a href="index.html" class="nav-btn">Главная</a>
-        <a href="rules.html" class="nav-btn">Правила</a>
-        <a href="hierarchy.html" class="nav-btn">Иерархия</a>
-        <a href="donate.html" class="nav-btn donate active">Магазин</a>
-    </nav>
-
-    <section class="page-header">
-        <h1 class="page-title">Магазин</h1>
-    </section>
-
-    <div class="shop-grid">
-        <!-- ЭЛИТНЫЙ БОЕЦ -->
-        <div class="shop-card" data-tilt>
-            <div class="hot-badge">Горячо!</div>
-            <div class="card-image">
-                <span class="item-visual">🛡️</span>
-            </div>
-            <div class="card-info">
-                <h3 class="card-name">Элитный боец</h3>
-                <button class="price-btn" onclick="buy('Элитный боец', 149)">149 ₽</button>
-            </div>
-        </div>
-
-        <!-- ИМЕННОЕ ПОМЕСТЬЕ -->
-        <div class="shop-card" data-tilt>
-            <div class="card-image">
-                <span class="item-visual">🏰</span>
-            </div>
-            <div class="card-info">
-                <h3 class="card-name">Именное поместье</h3>
-                <button class="price-btn" onclick="buy('Именное поместье', 299)">299 ₽</button>
-            </div>
-        </div>
-
-        <!-- ТРАНСПОРТ -->
-        <div class="shop-card" data-tilt>
-            <div class="card-image">
-                <span class="item-visual">🚀</span>
-            </div>
-            <div class="card-info">
-                <h3 class="card-name">Личный транспорт</h3>
-                <button class="price-btn" onclick="buy('Личный транспорт', 349)">349 ₽</button>
-            </div>
-        </div>
-
-        <!-- ОРУЖИЕ -->
-        <div class="shop-card" data-tilt>
-            <div class="card-image">
-                <span class="item-visual">⚔️</span>
-            </div>
-            <div class="card-info">
-                <h3 class="card-name">Уникальное оружие</h3>
-                <button class="price-btn" onclick="buy('Уникальное оружие', 99)">99 ₽</button>
-            </div>
-        </div>
-
-        <!-- VIP -->
-        <div class="shop-card" data-tilt>
-            <div class="card-image">
-                <span class="item-visual">👑</span>
-            </div>
-            <div class="card-info">
-                <h3 class="card-name">VIP статус</h3>
-                <button class="price-btn" onclick="buy('VIP статус', 199)">199 ₽</button>
-            </div>
-        </div>
-
-        <!-- АДМИНКА -->
-        <div class="shop-card" data-tilt>
-            <div class="card-image">
-                <span class="item-visual">⚡</span>
-            </div>
-            <div class="card-info">
-                <h3 class="card-name">Привилегии командира</h3>
-                <button class="price-btn" onclick="buy('Привилегии командира', 599)">599 ₽</button>
-            </div>
-        </div>
-
-        <!-- СКИН -->
-        <div class="shop-card" data-tilt>
-            <div class="card-image">
-                <span class="item-visual">🎭</span>
-            </div>
-            <div class="card-info">
-                <h3 class="card-name">Костюм гвардейца</h3>
-                <button class="price-btn" onclick="buy('Костюм гвардейца', 79)">79 ₽</button>
-            </div>
-        </div>
-
-        <!-- НАБОР -->
-        <div class="shop-card" data-tilt>
-            <div class="hot-badge">Выгода!</div>
-            <div class="card-image">
-                <span class="item-visual">📦</span>
-            </div>
-            <div class="card-info">
-                <h3 class="card-name">Полный комплект</h3>
-                <button class="price-btn" onclick="buy('Полный комплект', 799)">799 ₽</button>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        Все права защищены • The Millennium Empire
-    </footer>
-
-    <button class="to-top" id="toTop">↑</button>
-
-    <script>
-        function buy(item, price){
-            alert(`Добавлено в корзину: ${item} — ${price} ₽\n\nОплата через Discord: #магазин`);
-        }
-
-        // 3D эффект
-        VanillaTilt.init(document.querySelectorAll('.shop-card'), {
-            max: 15,
-            speed: 400,
-            glare: false
-        });
-
-        // Кнопка наверх
-        const toTop = document.getElementById('toTop');
-        window.addEventListener('scroll', () => {
-            toTop.classList.toggle('visible', window.scrollY > 300);
-        });
-        toTop.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
-    </script>
-
-</body>
-</html>
+        /* ПРИЗЫВ К
