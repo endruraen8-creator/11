@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Правила – The Millennium Empire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#000;
+      --panel:#111;
+      --accent:#5865F2;
+      --gold:#d4af37;
+      --text:#fff;
+      --mute:#aaa;
+      --radius:12px;
+      --max-w:800px;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Orbitron',sans-serif;
+      text-align:center;
+      overflow-x:hidden;
+      position:relative;
+    }
+    body::before{
+      content:'';position:fixed;inset:0;z-index:-2;
+      background:
+        radial-gradient(circle at 15% 70%,rgba(88,101,242,.35) 0%,transparent 25%),
+        radial-gradient(circle at 80% 20%,rgba(221,68,68,.3) 0%,transparent 15%),
+        radial-gradient(circle at 60% 90%,rgba(136,68,221,.25) 0%,transparent 20%),
+        #000;
+      animation:drift 200s linear infinite;
+    }
+    @keyframes drift{0%{transform:translate(0,0)}100%{transform:translate(-100px,50px)}}
+    body::after{
+      content:'';position:fixed;inset:0;z-index:-1;
+      background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="0.7" fill="%235865F2" opacity="0.8"/><circle cx="30" cy="70" r="0.5" fill="%235865F2" opacity="0.6"/><circle cx="80" cy="40" r="0.9" fill="%235865F2" opacity="0.9"/><circle cx="50" cy="50" r="0.4" fill="%235865F2" opacity="0.5"/><circle cx="90" cy="90" r="0.6" fill="%235865F2" opacity="0.7"/><circle cx="20" cy="80" r="0.5" fill="%235865F2" opacity="0.6"/><circle cx="70" cy="20" r="0.8" fill="%235865F2" opacity="0.8"/></svg>') repeat;
+      animation:float 120s linear infinite;
+    }
+    @keyframes float{0%{transform:translateY(0)}100%{transform:translateY(-100vh)}}
+
+    header{position:sticky;top:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);padding:20px 40px;display:flex;align-items:center;justify-content:center;z-index:100;border-bottom:1px solid var(--accent);box-shadow:0 0 20px rgba(88,101,242,.3)}
+    .logo-txt{font-size:2.2rem;font-weight:700;letter-spacing:4px;background:linear-gradient(45deg,#fff,#aaa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 40px rgba(255,255,255,.5);animation:glow 3s ease-in-out infinite}
+    @keyframes glow{50%{text-shadow:0 0 60px rgba(255,255,255,.9)}}
+    .discord-top{display:flex;align-items:center;gap:10px;margin-left:auto;text-decoration:none;color:#fff;font-size:1rem;transition:transform .3s ease}
+    .discord-top:hover{transform:scale(1.05)}
+    .discord-icon{width:36px;height:36px;fill:var(--accent);transition:fill .3s ease}
+    .discord-top:hover .discord-icon{fill:#7289DA}
+
+    nav{display:flex;justify-content:center;gap:20px;margin:40px 0;flex-wrap:wrap}
+    .nav-btn{background:linear-gradient(45deg,#1a1a1a,#2d2d2d);border:1px solid var(--accent);padding:14px 28px;border-radius:var(--radius);font-size:1.1rem;font-weight:700;color:#fff;text-decoration:none;transition:all .3s ease;text-align:center;position:relative;overflow:hidden}
+    .nav-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(88,101,242,.4),transparent);transition:left .6s ease}
+    .nav-btn:hover::before{left:100%}
+    .nav-btn:hover{background:rgba(88,101,242,.1);box-shadow:0 0 30px rgba(88,101,242,.6);transform:translateY(-3px)}
+    .nav-btn.active{background:rgba(88,101,242,.2);box-shadow:0 0 25px rgba(88,101,242,.8);border-color:#fff}
+
+    /* поиск в правом верхнем углу */
+    .search-top{
+      position:absolute;
+      top:24px;
+      right:40px;
+      background:linear-gradient(45deg,#1a1a1a,#2d2d2d);
+      border:1px solid var(--accent);
+      border-radius:var(--radius);
+      padding:8px 14px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      z-index:101;
+    }
+    .search-top input{
+      background:transparent;
+      border:none;
+      color:var(--text);
+      font-family:inherit;
+      font-size:.9rem;
+      width:140px;
+      outline:none;
+    }
+    .search-top input::placeholder{color:var(--mute)}
+    .search-top i{color:var(--accent)}
+
+    h1{font-size:2.4rem;margin:40px 0;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-shadow:0 0 20px rgba(212,175,55,.5)}
+
+    .container{max-width:var(--max-w);margin:0 auto;padding:0 20px}
+
+    .rule{background:linear-gradient(45deg,#1a1a1a,#2d2d2d);border:1px solid var(--accent);border-radius:var(--radius);padding:22px 26px;margin:0 auto 24px;text-align:left;position:relative;transition:transform .3s ease,box-shadow .3s ease}
+    .rule:hover{transform:translateY(-3px);box-shadow:0 0 30px rgba(88,101,242,.6)}
+    .rule-number{display:inline-block;background:var(--accent);color:#fff;padding:4px 10px;border-radius:6px;font-size:.85rem;font-weight:700;margin-right:.8rem}
+    .punish{margin-top:.6rem;font-size:.9rem;font-weight:700;color:#ff9e9e}
+    .note{margin-top:.6rem;font-size:.9rem;color:var(--gold)}
+    ul{margin-left:1.2rem;margin-top:.4rem}
+    li{margin-bottom:.3rem}
+
+    .to-top{position:fixed;bottom:30px;right:30px;background:var(--accent);color:#fff;border:none;padding:14px 18px;border-radius:50%;cursor:pointer;font-size:22px;opacity:0;transition:opacity .3s ease,background .3s ease;z-index:200;box-shadow:0 0 20px rgba(88,101,242,.6)}
+    .to-top.visible{opacity:1}
+    .to-top:hover{background:#7289DA;box-shadow:0 0 30px rgba(114,137,218,.8)}
+
+    h2{font-size:1.6rem;margin:50px 0 20px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;border-bottom:1px solid var(--accent);padding-bottom:8px}
+
+    @media(max-width:768px){
+      h1{font-size:2rem}
+      header{padding:15px 20px;flex-direction:column;gap:10px;text-align:center}
+      .nav-btn{width:90%}
+      .search-top{position:static;margin:20px auto 0;width:fit-content}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-txt">The Millennium Empire</div>
+  <!-- поиск в правом верхнем углу -->
+  <div class="search-top">
+    <i class="fas fa-search"></i>
+    <input type="text" id="ruleSearch" placeholder="Поиск по правилам...">
+  </div>
+  <a class="discord-top" href="https://discord.gg/STDc6fJDzz" target="_blank">
+    <svg class="discord-icon" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+    <span>Discord-сервер</span>
+  </a>
+</header>
+
+<nav>
+  <a href="index.html" class="nav-btn">Главная</a>
+  <a href="rules.html" class="nav-btn active">Правила</a>
+  <a href="hierarchy.html" class="nav-btn">Иерархия</a>
+  <a href="donate.html" class="nav-btn" style="border-color:#f39c12;color:#f39c12">Донат</a>
+</nav>
+
+<h1>Правила проекта</h1>
+
+<div class="container">
+  <!-- 1. Основные нарушения RP -->
+  <section>
+    <h2>1. Основные нарушения RP</h2>
+
+    <div class="rule" data-keywords="nonrp нарушение ролевого взаимодействия логика">
+      <span class="rule-number">1.1</span>
+      <strong>NONRP</strong> – нарушение принципов ролевого взаимодействия: действия, противоречащие логике, реалистичности и механикам мира.
+      <div class="punish">Мут 20 мин</div>
+    </div>
+
+    <div class="rule" data-keywords="rdm random deathmatch убийство без причины">
+      <span class="rule-number">1.2</span>
+      <strong>RDM</strong> – умышленное лишение жизни более одного персонажа без достаточных ролевых оснований.
+      <div class="punish">Мут 40 мин</div>
+    </div>
+
+    <div class="rule" data-keywords="metagaming ooc ic информация">
+      <span class="rule-number">1.3</span>
+      <strong>MG (Metagaming)</strong> – использование OOC-информации в IC.
+      <div class="punish">Мут 20 мин</div>
+    </div>
+
+    <div class="rule" data-keywords="powergaming pg навязывание сверхвозможности">
+      <span class="rule-number">1.4</span>
+      <strong>PG (Powergaming)</strong> – навязывание действий или сверхвозможности персонажу.
+      <div class="punish">Мут 20 мин</div>
+    </div>
+
+    <div class="rule" data-keywords="dm deathmatch убийство одного без причины">
+      <span class="rule-number">1.5</span>
+      <strong>DM (DeathMatch)</strong> – убийство одного персонажа без причины.
+      <div class="punish">Мут 30 мин</div>
+    </div>
+
+    <div class="rule" data-keywords="fearrp страх жизнь угроза">
+      <span class="rule-number">1.6</span>
+      <strong>FearRP</strong> – обязанность испытывать страх; персонаж должен бояться ситуаций, где его жизнь под угрозой.
+      <div class="punish">Мут 30 мин</div>
+    </div>
+
+    <div class="rule" data-keywords="failrp противоречие роли">
+      <span class="rule-number">1.7</span>
+      <strong>FailRP</strong> – действия, противоречащие роли персонажа или правилам RP.
+      <div class="punish">Мут 20 мин</div>
+    </div>
+
+    <div class="rule" data-keywords="program abuse pa софт преимущество">
+      <span class="rule-number">1.8</span>
+      <strong>Program abuse (PA)</strong> – использование стороннего ПО, дающего превосходство.
+      <div class="punish">Бан 1 день / PermBan</div>
+    </div>
+
+    <div class="rule" data-keywords="transport damage td транспорт урон">
+      <span class="rule-number">1.9</span>
+      <strong>Transport Damage (TD)</strong> – нанесение урона игрокам без РП-причины на транспорте.
+      <div class="punish">Мут 20 мин</div>
+    </div>
+
+    <div class="rule" data-keywords="prop abuse пропы отыгровка">
+      <span class="rule-number">1.10</span>
+      <strong>Prop Abuse</strong> – пропы разрешены только при отыгровке.
+      <div class="punish">Мут 40 мин</div>
+    </div>
+
+    <div class="rule" data-keywords="недочёты правил обход выгода">
+      <span class="rule-number">1.11</span>
+      <strong>Запрещено использовать недочёты правил</strong> для обхода или личной выгоды.
+      <div class="punish">Бан 2 – 6 ч</div>
+    </div>
+
+    <div class="rule" data-keywords="рецидив повторное нарушение">
+      <span class="rule-number">1.12</span>
+      <strong>Рецидив</strong> – повторное нарушение после уже выданного наказания за аналогичное действие.
+      <div class="punish">длительность предыдущего наказания ×2</div>
+    </div>
+
+    <div class="rule" data-keywords="оскорбление родителей">
+      <span class="rule-number">1.13</span>
+      <strong>Запрещено оскорблять родителей игроков</strong> любым образом.
+      <div class="punish">Бан 1 – 2 ч</div>
+    </div>
+  </section>
+
+  <!-- 2. Взаимодействие с администрацией -->
+  <section>
+    <h2>2. Взаимодействие с администрацией</h2>
+
+    <div class="rule" data-keywords="выдача себя за админа логотипы ники">
+      <span class="rule-number">2.1</span>
+      <strong>Запрет выдачи себя за администратора</strong> – использование логотипов, ников, команд или атрибутов админов.
+      <div class="punish">Мут 1 ч / 5 ч / Бан 1 нед</div>
+    </div>
+
+    <div class="rule" data-keywords="оскорбления давление на админа угрозы шантаж">
+      <span class="rule-number">2.2</span>
+      <strong>Запрет оскорблений и давления на администрацию</strong>: угрозы, оскорбления, шантаж, требования снять наказание без причины, публичные оскорбления в IC/OOC.
+      <div class="punish">Мут 2 ч / 10 ч / Бан 1 нед</div>
+    </div>
+
+    <div class="rule" data-keywords="доказательства скрины видео чат">
+      <span class="rule-number">2.3</span>
+      <strong>Обязанность предоставлять доказательства</strong> по требованию администрации: скриншоты, записи чата, видео. Отсутствие док-в не освобождает от наказания.
+      <div class="punish">Мут 2 ч</div>
+    </div>
+
+    <div class="rule" data-keywords="обход наказаний второй акк">
+      <span class="rule-number">2.4</span>
+      <strong>Запрет обхода наказаний</strong> любыми способами (второй акк, договорённости и т.д.).
+      <div class="punish">Бан 1 месяц / PermBan</div>
+    </div>
+  </section>
+
+  <div class="note">
+    Право редактировать документ имеет главный администратор.<br>
+    Автор: Mauricio Gray.<br>
+    Последнее обновление: 26.01.2026
+  </div>
+</div>
+
+<button class="to-top" id="toTop">↑</button>
+
+<script>
+  /* живой поиск */
+  const searchInput=document.getElementById('ruleSearch');
+  searchInput.addEventListener('input',()=>{
+    const q=searchInput.value.toLowerCase();
+    document.querySelectorAll('.rule').forEach(r=>{
+      const txt=(r.textContent+r.dataset.keywords).toLowerCase();
+      r.style.display=txt.includes(q)?'':'none';
+    });
+  });
+
+  /* кнопка «наверх» */
+  const toTop=document.getElementById('toTop');
+  window.addEventListener('scroll',()=>toTop.classList.toggle('visible',window.scrollY>300));
+  toTop.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+</script>
+</body>
+</html>
