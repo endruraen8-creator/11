@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Поддержка проекта | The Millennium Empire</title>
+    <title>Магазин | The Millennium Empire</title>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
@@ -11,11 +11,11 @@
         *{margin:0;padding:0;box-sizing:border-box}
         
         :root{
-            --primary-red:#c41e3a;
-            --primary-gold:#d4af37;
-            --tech-blue:#00d9ff;
+            --imperial-red:#ff3333;
+            --imperial-gold:#d4af37;
+            --holo-blue:#00d9ff;
             --discord-blue:#5865F2;
-            --bg-dark:#0a0a0f;
+            --dark-side:#1a0a0a;
         }
         
         body{
@@ -30,7 +30,7 @@
         body::before{
             content:'';position:fixed;inset:0;z-index:-3;
             background:
-                radial-gradient(circle at 20% 80%,rgba(196,30,58,.15)0%,transparent 40%),
+                radial-gradient(circle at 20% 80%,rgba(255,51,51,.15)0%,transparent 40%),
                 radial-gradient(circle at 80% 20%,rgba(212,175,55,.1)0%,transparent 30%),
                 radial-gradient(circle at 50% 50%,rgba(88,101,242,.05)0%,transparent 50%),
                 #000;
@@ -111,8 +111,8 @@
         }
 
         .nav-btn.donate{
-            border-color:var(--primary-gold);
-            color:var(--primary-gold);
+            border-color:var(--imperial-gold);
+            color:var(--imperial-gold);
         }
         
         .nav-btn.donate:hover{
@@ -128,346 +128,134 @@
         /* ЗАГОЛОВОК */
         .page-header{
             text-align:center;
-            padding:60px 20px;
-            border-bottom:2px solid var(--primary-red);
+            padding:40px 20px;
         }
 
         .page-title{
-            font-size:3.5rem;
+            font-size:4rem;
             font-weight:900;
             color:#fff;
             text-transform:uppercase;
-            letter-spacing:6px;
-            margin-bottom:15px;
-        }
-        
-        .page-subtitle{
-            font-size:1.2rem;
-            color:var(--tech-blue);
-            letter-spacing:3px;
-            text-transform:uppercase;
-        }
-
-        /* ОПИСАНИЕ */
-        .intro-section{
-            text-align:center;
-            padding:50px 20px;
-            max-width:900px;
-            margin:0 auto;
-        }
-        
-        .intro-text{
-            font-size:1.3rem;
-            color:#ccc;
-            line-height:1.8;
+            letter-spacing:8px;
+            margin-bottom:10px;
         }
 
         /* СЕТКА */
-        .tier-grid{
+        .shop-grid{
             max-width:1400px;
             margin:0 auto;
-            padding:40px 20px;
+            padding:20px;
             display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
             gap:30px;
         }
 
         /* КАРТОЧКА */
-        .tier-card{
-            background:linear-gradient(145deg,rgba(20,20,30,.95),rgba(30,30,45,.95));
+        .shop-card{
+            background:linear-gradient(145deg,rgba(26,26,26,.9),rgba(20,20,20,.9));
             border:1px solid #333;
-            border-radius:12px;
+            border-radius:20px;
             padding:0;
             position:relative;
+            overflow:hidden;
             transition:all .3s ease;
         }
         
-        .tier-card:hover{
-            transform:translateY(-8px);
-            border-color:var(--primary-gold);
+        .shop-card:hover{
+            transform:translateY(-10px);
+            border-color:var(--imperial-gold);
             box-shadow:0 20px 50px rgba(212,175,55,.2);
         }
 
-        /* VIP статус */
-        .tier-card.premium{
-            border-color:var(--primary-gold);
-        }
-        
-        .tier-card.premium:hover{
-            box-shadow:0 20px 50px rgba(212,175,55,.4);
-        }
-
-        .tier-header{
-            padding:25px;
-            border-bottom:1px solid #333;
-            position:relative;
-        }
-        
-        .tier-card.premium .tier-header{
-            border-color:var(--primary-gold);
-            background:rgba(212,175,55,.05);
-        }
-
-        .tier-badge{
+        /* МЕТКА ГОРЯЧЕЕ */
+        .hot-badge{
             position:absolute;
             top:15px;
             right:15px;
-            padding:5px 15px;
-            background:rgba(212,175,55,.2);
-            border:1px solid var(--primary-gold);
-            color:var(--primary-gold);
-            font-size:.7rem;
-            font-weight:700;
-            text-transform:uppercase;
-            letter-spacing:2px;
-            border-radius:4px;
-        }
-
-        .tier-icon{
-            font-size:3rem;
-            margin-bottom:15px;
-            display:block;
-        }
-
-        .tier-name{
-            font-size:1.6rem;
-            font-weight:900;
+            background:linear-gradient(45deg,#ff6b35,#f7931e);
             color:#fff;
+            padding:8px 15px;
+            border-radius:20px;
+            font-size:.8rem;
+            font-weight:900;
             text-transform:uppercase;
-            letter-spacing:2px;
-            margin-bottom:8px;
+            z-index:10;
+            display:flex;
+            align-items:center;
+            gap:5px;
         }
         
-        .tier-card.premium .tier-name{
-            color:var(--primary-gold);
+        .hot-badge::before{
+            content:'🔥';
         }
 
-        .tier-desc{
-            font-size:.9rem;
-            color:#888;
-            text-transform:uppercase;
-            letter-spacing:1px;
+        /* ИЗОБРАЖЕНИЕ */
+        .card-image{
+            height:200px;
+            background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            position:relative;
+            border-bottom:1px solid #333;
+        }
+        
+        .card-image::before{
+            content:'';position:absolute;inset:0;
+            background:radial-gradient(circle at 30% 70%,rgba(255,51,51,.2)0%,transparent 50%),
+                       radial-gradient(circle at 70% 30%,rgba(212,175,55,.1)0%,transparent 50%);
         }
 
-        .tier-body{
+        .item-visual{
+            font-size:5rem;
+            position:relative;
+            z-index:2;
+            filter:drop-shadow(0 10px 20px rgba(0,0,0,.5));
+        }
+
+        /* ИНФО */
+        .card-info{
             padding:25px;
         }
 
-        .feature-list{
-            list-style:none;
-            margin-bottom:25px;
-        }
-        
-        .feature-list li{
-            padding:10px 0;
-            border-bottom:1px solid #222;
-            color:#aaa;
-            font-size:.95rem;
-            display:flex;
-            align-items:center;
-            gap:10px;
-        }
-        
-        .feature-list li::before{
-            content:'▸';
-            color:var(--primary-gold);
-            font-weight:900;
-        }
-
-        .tier-price{
-            font-size:2.8rem;
-            font-weight:900;
+        .card-name{
+            font-size:1.4rem;
+            font-weight:700;
             color:#fff;
-            text-align:center;
             margin-bottom:20px;
-        }
-        
-        .tier-card.premium .tier-price{
-            color:var(--primary-gold);
-        }
-        
-        .tier-price span{
-            font-size:1rem;
-            color:#666;
-        }
-
-        .purchase-btn{
-            width:100%;
-            padding:18px;
-            background:var(--primary-red);
-            border:none;
-            border-radius:8px;
-            color:#fff;
-            font-size:1rem;
-            font-weight:900;
-            text-transform:uppercase;
-            letter-spacing:2px;
-            cursor:pointer;
-            transition:all .3s ease;
-        }
-        
-        .purchase-btn:hover{
-            background:#d62839;
-            box-shadow:0 0 30px rgba(196,30,58,.4);
-            transform:scale(1.02);
-        }
-
-        /* СПЕЦИАЛЬНЫЙ НАБОР */
-        .bundle-card{
-            grid-column:1 / -1;
-            display:grid;
-            grid-template-columns:1.5fr 1fr;
-            gap:40px;
-            background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(196,30,58,.1));
-            border:2px solid var(--primary-gold);
-            padding:40px;
-            align-items:center;
-        }
-
-        .bundle-content h3{
-            font-size:2.2rem;
-            color:var(--primary-gold);
-            text-transform:uppercase;
-            letter-spacing:3px;
-            margin-bottom:15px;
-        }
-
-        .bundle-content p{
-            color:#aaa;
-            font-size:1.1rem;
-            line-height:1.8;
-            margin-bottom:25px;
-        }
-
-        .bundle-price{
-            font-size:3.5rem;
-            font-weight:900;
-            color:var(--primary-red);
-        }
-        
-        .bundle-price .original{
-            font-size:1.5rem;
-            color:#555;
-            text-decoration:line-through;
-            margin-right:20px;
-        }
-
-        .bundle-visual{
+            min-height:50px;
             display:flex;
             align-items:center;
-            justify-content:center;
-        }
-        
-        .bundle-icon{
-            font-size:7rem;
-            filter:drop-shadow(0 0 30px rgba(212,175,55,.5));
         }
 
-        /* МОДАЛЬНОЕ ОКНО */
-        .modal{
-            display:none;
-            position:fixed;inset:0;
-            background:rgba(0,0,0,.95);
-            z-index:1000;
-            align-items:center;
-            justify-content:center;
-            backdrop-filter:blur(5px);
-        }
-        
-        .modal-box{
-            background:#111;
-            border:1px solid #333;
-            border-radius:12px;
-            padding:40px;
-            max-width:450px;
-            width:90%;
-            text-align:center;
-        }
-        
-        .modal-title{
-            font-size:1.5rem;
-            color:#fff;
-            text-transform:uppercase;
-            letter-spacing:3px;
-            margin-bottom:10px;
-        }
-        
-        .modal-item{
-            font-size:1.1rem;
-            color:var(--primary-gold);
-            margin-bottom:25px;
-            text-transform:uppercase;
-        }
-        
-        .modal-price{
-            font-size:2.5rem;
-            font-weight:900;
-            color:#fff;
-            margin-bottom:30px;
-        }
-        
-        .pay-option{
+        /* КНОПКА ЦЕНЫ */
+        .price-btn{
             width:100%;
             padding:15px;
-            margin:8px 0;
-            background:#1a1a1a;
-            border:1px solid #333;
-            border-radius:8px;
+            background:linear-gradient(90deg,#e73c3e,#ff6b6b);
+            border:none;
+            border-radius:25px;
             color:#fff;
-            font-size:1rem;
+            font-size:1.1rem;
+            font-weight:900;
             cursor:pointer;
             transition:all .3s ease;
             text-transform:uppercase;
             letter-spacing:1px;
         }
         
-        .pay-option:hover{
-            border-color:var(--primary-gold);
-            background:rgba(212,175,55,.1);
-        }
-        
-        .pay-option.primary{
-            background:var(--primary-gold);
-            border-color:var(--primary-gold);
-            color:#000;
-            font-weight:700;
-        }
-        
-        .pay-option.primary:hover{
-            background:#e5c158;
-            box-shadow:0 0 20px rgba(212,175,55,.4);
-        }
-
-        .modal-close{
-            margin-top:20px;
-            padding:10px 30px;
-            background:transparent;
-            border:1px solid #444;
-            color:#666;
-            cursor:pointer;
-            text-transform:uppercase;
-            font-size:.9rem;
-            transition:all .3s ease;
-        }
-        
-        .modal-close:hover{
-            border-color:#fff;
-            color:#fff;
+        .price-btn:hover{
+            transform:scale(1.05);
+            box-shadow:0 10px 30px rgba(231,60,62,.4);
         }
 
         /* ФУТЕР */
         footer{
             text-align:center;
             padding:50px 20px;
-            border-top:1px solid #222;
-            margin-top:60px;
-        }
-        
-        .footer-text{
             color:#444;
             font-size:.9rem;
-            text-transform:uppercase;
-            letter-spacing:2px;
+            margin-top:40px;
         }
 
         /* КНОПКА НАВЕРХ */
@@ -482,15 +270,11 @@
         }
         
         .to-top.visible{opacity:1;}
-        .to-top:hover{
-            background:#7289DA;
-            transform:scale(1.1);
-        }
+        .to-top:hover{background:#7289DA;}
 
         @media(max-width:768px){
-            .page-title{font-size:2rem;}
-            .tier-grid{grid-template-columns:1fr;}
-            .bundle-card{grid-template-columns:1fr;text-align:center;}
+            .page-title{font-size:2.5rem;letter-spacing:4px;}
+            .shop-grid{grid-template-columns:1fr;}
             .nav-btn{width:90%;}
             header{padding:15px;text-align:center;}
             .logo-txt{font-size:1.8rem;}
@@ -507,167 +291,119 @@
         <a href="index.html" class="nav-btn">Главная</a>
         <a href="rules.html" class="nav-btn">Правила</a>
         <a href="hierarchy.html" class="nav-btn">Иерархия</a>
-        <a href="donate.html" class="nav-btn donate active">Поддержка</a>
+        <a href="donate.html" class="nav-btn donate active">Магазин</a>
     </nav>
 
     <section class="page-header">
-        <h1 class="page-title">Снабжение</h1>
-        <p class="page-subtitle">Материально-техническое обеспечение</p>
+        <h1 class="page-title">Магазин</h1>
     </section>
 
-    <section class="intro-section">
-        <p class="intro-text">
-            Ваши средства направляются на развитие инфраструктуры, 
-            обеспечение стабильности системы и расширение функционала. 
-            Взамен вы получаете доступ к расширенным возможностям.
-        </p>
-    </section>
-
-    <div class="tier-grid">
-        <!-- БАЗОВЫЙ -->
-        <div class="tier-card" data-tilt>
-            <div class="tier-header">
-                <span class="tier-icon">⚪</span>
-                <h3 class="tier-name">Кадет</h3>
-                <p class="tier-desc">Базовое обеспечение</p>
+    <div class="shop-grid">
+        <!-- ЭЛИТНЫЙ БОЕЦ -->
+        <div class="shop-card" data-tilt>
+            <div class="hot-badge">Горячо!</div>
+            <div class="card-image">
+                <span class="item-visual">🛡️</span>
             </div>
-            <div class="tier-body">
-                <ul class="feature-list">
-                    <li>Выделенный слот на сервере</li>
-                    <li>Увеличенный лимит персонажей</li>
-                    <li>Префикс в коммуникациях</li>
-                </ul>
-                <div class="tier-price">49 <span>₽</span></div>
-                <button class="purchase-btn" onclick="openModal('КАДЕТ',49)">Оформить</button>
+            <div class="card-info">
+                <h3 class="card-name">Элитный боец</h3>
+                <button class="price-btn" onclick="buy('Элитный боец', 149)">149 ₽</button>
             </div>
         </div>
 
-        <!-- СТАНДАРТ -->
-        <div class="tier-card" data-tilt>
-            <div class="tier-header">
-                <span class="tier-icon">⚫</span>
-                <h3 class="tier-name">Офицер</h3>
-                <p class="tier-desc">Расширенный доступ</p>
+        <!-- ИМЕННОЕ ПОМЕСТЬЕ -->
+        <div class="shop-card" data-tilt>
+            <div class="card-image">
+                <span class="item-visual">🏰</span>
             </div>
-            <div class="tier-body">
-                <ul class="feature-list">
-                    <li>Всё из предыдущего уровня</li>
-                    <li>Доступ к закрытым зонам</li>
-                    <li>Эксклюзивное снаряжение</li>
-                    <li>Приоритетная поддержка</li>
-                </ul>
-                <div class="tier-price">149 <span>₽</span></div>
-                <button class="purchase-btn" onclick="openModal('ОФИЦЕР',149)">Оформить</button>
+            <div class="card-info">
+                <h3 class="card-name">Именное поместье</h3>
+                <button class="price-btn" onclick="buy('Именное поместье', 299)">299 ₽</button>
             </div>
         </div>
 
-        <!-- ПРЕМИУМ -->
-        <div class="tier-card premium" data-tilt>
-            <div class="tier-header">
-                <span class="tier-badge">Приоритет</span>
-                <span class="tier-icon">🔴</span>
-                <h3 class="tier-name">Командир</h3>
-                <p class="tier-desc">Полный контроль</p>
+        <!-- ТРАНСПОРТ -->
+        <div class="shop-card" data-tilt>
+            <div class="card-image">
+                <span class="item-visual">🚀</span>
             </div>
-            <div class="tier-body">
-                <ul class="feature-list">
-                    <li>Всё из предыдущих уровней</li>
-                    <li>Персональный транспорт</li>
-                    <li>Возможность управления отрядом</li>
-                    <li>Ранний доступ к обновлениям</li>
-                    <li>Уникальные инструменты</li>
-                </ul>
-                <div class="tier-price">349 <span>₽</span></div>
-                <button class="purchase-btn" onclick="openModal('КОМАНДИР',349)">Оформить</button>
+            <div class="card-info">
+                <h3 class="card-name">Личный транспорт</h3>
+                <button class="price-btn" onclick="buy('Личный транспорт', 349)">349 ₽</button>
             </div>
         </div>
 
-        <!-- ЭЛИТА -->
-        <div class="tier-card premium" data-tilt>
-            <div class="tier-header">
-                <span class="tier-badge">Ограничено</span>
-                <span class="tier-icon">⚡</span>
-                <h3 class="tier-name">Маршал</h3>
-                <p class="tier-desc">Административные функции</p>
+        <!-- ОРУЖИЕ -->
+        <div class="shop-card" data-tilt>
+            <div class="card-image">
+                <span class="item-visual">⚔️</span>
             </div>
-            <div class="tier-body">
-                <ul class="feature-list">
-                    <li>Временные права модератора</li>
-                    <li>Доступ к системным командам</li>
-                    <li>Создание событий</li>
-                    <li>Персональный консультант</li>
-                    <li>Вечная запись в реестре</li>
-                </ul>
-                <div class="tier-price">599 <span>₽</span></div>
-                <button class="purchase-btn" onclick="openModal('МАРШАЛ',599)">Оформить</button>
+            <div class="card-info">
+                <h3 class="card-name">Уникальное оружие</h3>
+                <button class="price-btn" onclick="buy('Уникальное оружие', 99)">99 ₽</button>
+            </div>
+        </div>
+
+        <!-- VIP -->
+        <div class="shop-card" data-tilt>
+            <div class="card-image">
+                <span class="item-visual">👑</span>
+            </div>
+            <div class="card-info">
+                <h3 class="card-name">VIP статус</h3>
+                <button class="price-btn" onclick="buy('VIP статус', 199)">199 ₽</button>
+            </div>
+        </div>
+
+        <!-- АДМИНКА -->
+        <div class="shop-card" data-tilt>
+            <div class="card-image">
+                <span class="item-visual">⚡</span>
+            </div>
+            <div class="card-info">
+                <h3 class="card-name">Привилегии командира</h3>
+                <button class="price-btn" onclick="buy('Привилегии командира', 599)">599 ₽</button>
+            </div>
+        </div>
+
+        <!-- СКИН -->
+        <div class="shop-card" data-tilt>
+            <div class="card-image">
+                <span class="item-visual">🎭</span>
+            </div>
+            <div class="card-info">
+                <h3 class="card-name">Костюм гвардейца</h3>
+                <button class="price-btn" onclick="buy('Костюм гвардейца', 79)">79 ₽</button>
             </div>
         </div>
 
         <!-- НАБОР -->
-        <div class="bundle-card" data-tilt>
-            <div class="bundle-content">
-                <h3>Полное оснащение</h3>
-                <p>
-                    Комплексное решение для тех, кто требует максимума. 
-                    Включает все уровни доступа, персональные активы 
-                    и приоритетное обслуживание на 90 дней.
-                </p>
-                <div class="bundle-price">
-                    <span class="original">1,145₽</span>
-                    799₽
-                </div>
-                <button class="purchase-btn" style="margin-top:20px;padding:20px;font-size:1.1rem;" onclick="openModal('ПОЛНОЕ ОСНАЩЕНИЕ',799)">
-                    Активировать комплекс
-                </button>
+        <div class="shop-card" data-tilt>
+            <div class="hot-badge">Выгода!</div>
+            <div class="card-image">
+                <span class="item-visual">📦</span>
             </div>
-            <div class="bundle-visual">
-                <span class="bundle-icon">🔷</span>
+            <div class="card-info">
+                <h3 class="card-name">Полный комплект</h3>
+                <button class="price-btn" onclick="buy('Полный комплект', 799)">799 ₽</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <p class="footer-text">
-            Транзакции обрабатываются в ручном режиме • Выдача до 24 часов
-        </p>
+        Все права защищены • The Millennium Empire
     </footer>
-
-    <!-- МОДАЛЬНОЕ ОКНО -->
-    <div class="modal" id="paymentModal">
-        <div class="modal-box">
-            <h3 class="modal-title">Подтверждение</h3>
-            <p class="modal-item" id="modalItem">—</p>
-            <p class="modal-price" id="modalPrice">—</p>
-            
-            <button class="pay-option primary" onclick="alert('QIWI: обработка')">QIWI Кошелёк</button>
-            <button class="pay-option" onclick="alert('ЮMoney: обработка')">ЮMoney (Яндекс)</button>
-            <button class="pay-option" onclick="alert('DonationAlerts: обработка')">Банковская карта</button>
-            
-            <button class="modal-close" onclick="closeModal()">Отмена</button>
-        </div>
-    </div>
 
     <button class="to-top" id="toTop">↑</button>
 
     <script>
-        // Модальное окно
-        function openModal(item, price){
-            document.getElementById('modalItem').textContent = item;
-            document.getElementById('modalPrice').textContent = price + ' ₽';
-            document.getElementById('paymentModal').style.display = 'flex';
+        function buy(item, price){
+            alert(`Добавлено в корзину: ${item} — ${price} ₽\n\nОплата через Discord: #магазин`);
         }
-        
-        function closeModal(){
-            document.getElementById('paymentModal').style.display = 'none';
-        }
-        
-        document.getElementById('paymentModal').addEventListener('click', function(e){
-            if(e.target === this) closeModal();
-        });
 
         // 3D эффект
-        VanillaTilt.init(document.querySelectorAll('.tier-card, .bundle-card'), {
-            max: 10,
+        VanillaTilt.init(document.querySelectorAll('.shop-card'), {
+            max: 15,
             speed: 400,
             glare: false
         });
